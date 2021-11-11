@@ -144,6 +144,9 @@ button:hover{
     list-style: none;
 
 }
+.entry:disabled{
+    background: black;
+}
 
 @media only screen and (max-width: 600px) {
     .game{

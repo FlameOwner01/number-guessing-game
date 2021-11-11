@@ -11,6 +11,9 @@ const Form = ({ setInputNumber, inputNumber}) =>{
     const [counter, setCounter] = useState(10);
     const [previousArray, setPreviousArray] = useState([]);
     const [showButton, setShowButton] = useState(false);
+
+
+   
      
     const submitHandler = () => {
         let number1 = parseInt(inputNumber);
@@ -28,7 +31,10 @@ const Form = ({ setInputNumber, inputNumber}) =>{
                 setMessage("Congradulations! You got it right!");
                 setMessageValue("bg-success");
                 setCounter(0);
+                document.getElementById("btSubmit").disabled = true;
+                document.getElementById("inputDis").disabled = true;
                 setShowButton(true);
+                
                 return;
             }
             setShowButton(true);
@@ -52,6 +58,8 @@ const Form = ({ setInputNumber, inputNumber}) =>{
                 setMessageValue("bg-success");
                 setCounter(0);
                 setShowButton(true);
+                document.getElementById("btSubmit").disabled = true;
+                document.getElementById("inputDis").disabled = true;
                 return;
             }else if(number1 < number){
                 setMessage("UPS! Last guess was too low!");
@@ -68,16 +76,23 @@ const Form = ({ setInputNumber, inputNumber}) =>{
 
             setShowParagraph(true); 
             setCounter(counter-1);
+            setInputNumber("");
+            
+           
         }
-
     }
 
-    
+
+
+
+  
     const clearHandler = () =>{
         setInputNumber("");
     }
 
     const resetHandler = () =>{
+        document.getElementById("btSubmit").disabled = false;
+        document.getElementById("inputDis").disabled = false;
         clearHandler();
         setCounter(10);
         setMessage("");
@@ -89,10 +104,14 @@ const Form = ({ setInputNumber, inputNumber}) =>{
     return (
         <div className = "game">
             <p className="enter">Enter a number:</p>
-                <input type = "number" value = {inputNumber} onChange = {(e) => { setInputNumber(e.target.value)}}>
+            {
+                <input type = "number" value = {inputNumber} id = {"inputDis"} onChange = {(e) => { setInputNumber(e.target.value)}}>
                 </input>
+               
+            }
+                
             <div className ="buttons">
-                <button className="dugmadi" onClick = {submitHandler}>Submit Number</button>
+                <button className="dugmadi" onClick = {submitHandler} id="btSubmit">Submit Number</button>
                 <button className="dugmadi" onClick = {clearHandler}>Clear</button>
                 <button className="dugmadi" onClick = {resetHandler} >Reset</button>
             </div>

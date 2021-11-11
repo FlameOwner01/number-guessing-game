@@ -39,6 +39,8 @@ const Form = ({ setInputNumber, inputNumber}) =>{
             }
             setShowButton(true);
             setMessage("GAME OVER!");
+            document.getElementById("btSubmit").disabled = true;
+            document.getElementById("inputDis").disabled = true;
             setMessageValue("bg-warning");
             setCounter(0);
             return;

@@ -17,7 +17,10 @@ const Form = ({ setInputNumber, inputNumber}) =>{
      
     const submitHandler = () => {
         let number1 = parseInt(inputNumber);
-
+        document.getElementById("inputDis").disabled = false;
+        document.getElementById("inputDis1").disabled = false;
+        document.getElementById("inputDis2").disabled = false;
+        document.getElementById("inputDis3").disabled = false;
        if(counter-1 <= 0){
 
         if( number1 < 1 ||  number1 > 100 || isNaN(number1)){
@@ -34,6 +37,7 @@ const Form = ({ setInputNumber, inputNumber}) =>{
                 document.getElementById("inputDis1").disabled = true;
                 document.getElementById("inputDis2").disabled = true;
                 document.getElementById("inputDis3").disabled = true;
+                setCounter(0);
                 setShowButton(true);
                 return;
             }
@@ -44,6 +48,7 @@ const Form = ({ setInputNumber, inputNumber}) =>{
             document.getElementById("inputDis1").disabled = true;
             document.getElementById("inputDis2").disabled = true;
             document.getElementById("inputDis3").disabled = true;
+            setCounter(0);
             return;
            
         }
@@ -65,6 +70,7 @@ const Form = ({ setInputNumber, inputNumber}) =>{
                 document.getElementById("inputDis1").disabled = true;
                 document.getElementById("inputDis2").disabled = true;
                 document.getElementById("inputDis3").disabled = true;
+                setCounter(0);
                 return;
             }else if(number1 < number){
                 setMessage("UPS! Last guess was too low!");

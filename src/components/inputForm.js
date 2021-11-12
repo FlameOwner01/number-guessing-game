@@ -1,7 +1,7 @@
 import { useState} from "react";
 var number = Math.floor(Math.random() * 100) +1;
 console.log(number);
-
+        
 
 const Form = ({ setInputNumber, inputNumber}) =>{
 
@@ -30,19 +30,20 @@ const Form = ({ setInputNumber, inputNumber}) =>{
             if(number1 === number){
                 setMessage("Congradulations! You got it right!");
                 setMessageValue("bg-success");
-                setCounter(0);
-                document.getElementById("btSubmit").disabled = true;
                 document.getElementById("inputDis").disabled = true;
+                document.getElementById("inputDis1").disabled = true;
+                document.getElementById("inputDis2").disabled = true;
+                document.getElementById("inputDis3").disabled = true;
                 setShowButton(true);
-                
                 return;
             }
             setShowButton(true);
             setMessage("GAME OVER!");
-            document.getElementById("btSubmit").disabled = true;
-            document.getElementById("inputDis").disabled = true;
             setMessageValue("bg-warning");
-            setCounter(0);
+            document.getElementById("inputDis").disabled = true;
+            document.getElementById("inputDis1").disabled = true;
+            document.getElementById("inputDis2").disabled = true;
+            document.getElementById("inputDis3").disabled = true;
             return;
            
         }
@@ -60,8 +61,10 @@ const Form = ({ setInputNumber, inputNumber}) =>{
                 setMessageValue("bg-success");
                 setCounter(0);
                 setShowButton(true);
-                document.getElementById("btSubmit").disabled = true;
                 document.getElementById("inputDis").disabled = true;
+                document.getElementById("inputDis1").disabled = true;
+                document.getElementById("inputDis2").disabled = true;
+                document.getElementById("inputDis3").disabled = true;
                 return;
             }else if(number1 < number){
                 setMessage("UPS! Last guess was too low!");
@@ -93,8 +96,6 @@ const Form = ({ setInputNumber, inputNumber}) =>{
     }
 
     const resetHandler = () =>{
-        document.getElementById("btSubmit").disabled = false;
-        document.getElementById("inputDis").disabled = false;
         clearHandler();
         setCounter(10);
         setMessage("");
@@ -103,23 +104,37 @@ const Form = ({ setInputNumber, inputNumber}) =>{
         setPreviousArray([]);
         number = Math.floor(Math.random() * 100) +1;
     }
+    const newGameHandler = () =>{
+        clearHandler();
+        setCounter(10);
+        setMessage("");
+        setShowButton(false);
+        setShowParagraph(false);
+        setPreviousArray([]);
+        document.getElementById("inputDis").disabled = false;
+        document.getElementById("inputDis1").disabled = false;
+        document.getElementById("inputDis2").disabled = false;
+        document.getElementById("inputDis3").disabled = false;
+        number = Math.floor(Math.random() * 100) +1;
+
+    }
     return (
         <div className = "game">
             <p className="enter">Enter a number:</p>
             {
-                <input type = "number" value = {inputNumber} id = {"inputDis"} onChange = {(e) => { setInputNumber(e.target.value)}}>
+                <input type = "number"  id = {"inputDis"} value = {inputNumber} onChange = {(e) => { setInputNumber(e.target.value)}}>
                 </input>
                
             }
                 
             <div className ="buttons">
-                <button className="dugmadi" onClick = {submitHandler} id="btSubmit">Submit Number</button>
-                <button className="dugmadi" onClick = {clearHandler}>Clear</button>
-                <button className="dugmadi" onClick = {resetHandler} >Reset</button>
+                <button className="dugmadi"  id = {"inputDis1"} onClick = {submitHandler} >Submit Number</button>
+                <button className="dugmadi"  id = {"inputDis2"} onClick = {clearHandler}>Clear</button>
+                <button className="dugmadi"  id = {"inputDis3"} onClick = {resetHandler} >Reset</button>
             </div>
             <hr/>
 
-            <button className="dugmadi">Remaining Attemps: {counter}</button>
+            <button className="dugmadi" >Remaining Attemps: {counter}</button>
             {
                   showParagraph && <p className ="guesses">Previus guesses: {previousArray.map(item => (
                       <li className= "list" key={item.key}>{item.value},</li>
@@ -130,7 +145,7 @@ const Form = ({ setInputNumber, inputNumber}) =>{
             }
             
             {
-                showButton && <button className="block" onClick = {resetHandler} >Start new Game</button>
+                showButton && <button className="block" onClick = {newGameHandler} >Start new Game</button>
             }
         </div>
     );
